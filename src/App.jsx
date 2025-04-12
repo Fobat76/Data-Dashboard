@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import List from "./components/List";
+import Sidebar from "./components/Sidebar";
+import BreweryTypeChart from "./components/BreweryTypeChart";
+import BreweryStateChart from "./components/BreweryStateChart";
+import { Link } from "react-router-dom";
 
 function App() {
   const [CurrentFilter, SetFilter] = useState("breweries");
@@ -38,7 +42,11 @@ function App() {
     const fetchSearchResults = async () => {
       if (searchTerm.trim() !== "") {
         try {
-          const response = await fetch(`https://api.openbrewerydb.org/v1/breweries/search?query=${encodeURIComponent(searchTerm)}`);
+          const response = await fetch(
+            `https://api.openbrewerydb.org/v1/breweries/search?query=${encodeURIComponent(
+              searchTerm
+            )}`
+          );
           const data = await response.json();
           SetData(data);
           SetFilter("");
@@ -55,89 +63,39 @@ function App() {
   return (
     <>
       <header>
-        <h1>The Tavern 🍻</h1>
-        <img id="beer" src="/beer.png" alt="Beer" />
+        <h1>
+          <Link to="/" style={{ color: "black", textDecoration: "none" }}>
+            The Tavern 🍻
+          </Link>
+        </h1>
       </header>
+      <div className="charts">
+        <h2>Chart 1: Brewery Types</h2>
+        <BreweryTypeChart data={Data} />
 
-      <nav>
-        <div className="button-group">
-          <button
-            onClick={() => {
-              SetFilter("random");
-              SetCountry("");
-              setSearchTerm("");
-            }}
-          >
-            Random 🍀
-          </button>
-
-          <button
-            onClick={() => {
-              SetFilter("breweries");
-              SetCountry("");
-              setSearchTerm("");
-            }}
-          >
-            Brewery List 📜
-          </button>
-        </div>
-
-        <div className="search-group">
-          <input
-            type="text"
-            placeholder="Search breweries..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
-
-        <div className="radio-group">
-          <label>
-            <input
-              type="radio"
-              name="country"
-              onChange={() => {
-                SetCountry("south korea");
-                setSearchTerm("");
-                SetFilter("breweries");
-              }}
-            />
-            South Korea 🇰🇷
-          </label>
-
-          <label>
-            <input
-              type="radio"
-              name="country"
-              onChange={() => {
-                SetCountry("united states");
-                setSearchTerm("");
-                SetFilter("breweries");
-              }}
-            />
-            United States 🇺🇸
-          </label>
-
-          <label>
-            <input
-              type="radio"
-              name="country"
-              onChange={() => {
-                SetCountry("germany");
-                setSearchTerm("");
-                SetFilter("breweries");
-              }}
-            />
-            Germany 🇩🇪
-          </label>
-        </div>
-      </nav>
+        <h2>Chart 2: Breweries by State</h2>
+        <BreweryStateChart data={Data} />
+      </div>
+      <Sidebar
+        setFilter={SetFilter}
+        setCountry={SetCountry}
+        setSearchTerm={setSearchTerm}
+      />
 
       <main>
         <div className="stats">
           <p>Total Breweries: {Data.length}</p>
           <p>First Brewery: {Data[0]?.name || "N/A"}</p>
-          <p>Average Name Length: {Data.length > 0 ? Math.round(Data.reduce((sum, brewery) => sum + brewery.name.length, 0) / Data.length) : 0} characters</p>
+          <p>
+            Average Name Length:{" "}
+            {Data.length > 0
+              ? Math.round(
+                  Data.reduce((sum, brewery) => sum + brewery.name.length, 0) /
+                    Data.length
+                )
+              : 0}{" "}
+            characters
+          </p>
         </div>
 
         <List data={Data} />

@@ -1,16 +1,4 @@
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Comic Sans MS', cursive, sans-serif; 
-  background-color: #4c4543;
-  text-align: center;
-}
-
+/* App.css */
 
 header {
   background-color: #ffcc80;
@@ -20,11 +8,6 @@ header {
 
 header h1 {
   font-size: 2.5rem;
-}
-
-#beer {
-  width: 50px;
-  margin-top: 0.5rem;
 }
 
 nav {
@@ -51,6 +34,14 @@ button:hover {
   background-color: #fb8c00;
 }
 
+.search-group input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 20px;
+  border: none;
+  margin-bottom: 1rem;
+}
+
 .radio-group {
   display: flex;
   justify-content: center;
@@ -60,12 +51,24 @@ button:hover {
 
 label {
   font-size: 1rem;
+  color: white;
   cursor: pointer;
 }
 
 main {
   margin-top: 2rem;
   padding: 1rem;
+}
+
+.stats {
+  margin-bottom: 2rem;
+  background: #6b6867;
+  padding: 1rem;
+  border-radius: 15px;
+  color: white;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 ul {
@@ -76,7 +79,7 @@ ul {
   margin-top: 5px;
   max-width: 600px;
   background: rgb(70, 70, 70);
-  color:white;
+  color: white;
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -91,7 +94,25 @@ li:last-child {
   border-bottom: none;
 }
 
-
 li::marker {
   content: "";
+}
+
+.List {
+  margin-bottom: 10px;
+}
+
+.charts {
+  margin-top: 3rem;
+  background: #6b6867;
+  padding: 2rem;
+  border-radius: 20px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.charts h2 {
+  color: white;
+  margin-bottom: 1rem;
 }
